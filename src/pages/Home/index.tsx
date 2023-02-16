@@ -1,5 +1,14 @@
+import { Button, Typography } from "antd";
+
+const { Text } = Typography;
+
 const Home = () => {
-  return <div>This will be the main page</div>;
+  return (
+    <div>
+      <Button>Some text</Button>
+      <Text>Can I see difference?</Text>
+    </div>
+  );
 };
 
 export default Home;
