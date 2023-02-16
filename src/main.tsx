@@ -2,15 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "@/pages/Home";
-import Root from "./Root";
+import Root from "@/Root";
+import paths from "@/paths";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: paths.Root,
     element: <Root />,
     children: [
       {
-        path: "/home",
+        path: paths.Home,
         element: <Home />,
       },
     ],
