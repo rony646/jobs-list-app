@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Layout } from "antd";
 import paths from "@/paths";
 
 const Root = () => {
@@ -21,9 +21,9 @@ const Root = () => {
         },
       }}
     >
-      <div>
+      <Layout className="container">
         <Outlet />
-      </div>
+      </Layout>
     </ConfigProvider>
   );
 };
