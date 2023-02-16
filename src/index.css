@@ -7,6 +7,17 @@
 }
 
 body {
+  background: #f6f7fb;
   min-height: 100vh;
   scroll-behavior: smooth;
+}
+
+.container {
+  margin: 12px 12px;
+}
+
+@media (min-width: 992px) {
+  .container {
+    margin: 32px 120px;
+  }
 }
