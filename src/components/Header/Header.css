@@ -1,0 +1,8 @@
+header {
+    margin-bottom: 25px;
+}
+
+.title {
+    font-size: 40px;
+    user-select: none;
+}

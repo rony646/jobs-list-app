@@ -1,0 +1,8 @@
+.wrapper__home {
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr); */
+    grid-template: "input input input" 138px
+                   "aside list list" 100%;
+    width: 100%;
+}

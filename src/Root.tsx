@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ConfigProvider, Layout } from "antd";
+import Header from "@/components/Header";
 import paths from "@/paths";
 
 const Root = () => {
@@ -22,6 +23,7 @@ const Root = () => {
       }}
     >
       <Layout className="container">
+        <Header />
         <Outlet />
       </Layout>
     </ConfigProvider>
