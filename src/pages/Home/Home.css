@@ -1,8 +1,19 @@
 .wrapper__home {
-    display: grid;
-    /* grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr); */
-    grid-template: "input input input" 138px
-                   "aside list list" 100%;
-    width: 100%;
+  display: grid;
+  grid-template:
+    "input input input" 138px
+    "aside list list" 100%;
+  width: 100%;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 992px) {
+  .wrapper__home {
+    display: flex;
+    flex-direction: column;
+  }
 }
