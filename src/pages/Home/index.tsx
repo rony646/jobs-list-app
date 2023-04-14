@@ -7,6 +7,7 @@ import "./Home.css";
 
 import JobsList from "@/components/JobsList";
 import { Job } from "@/components/JobsList/types";
+import SearchInput from "@/components/SearchInput";
 
 const { Title } = Typography;
 
@@ -51,23 +52,23 @@ const Home = () => {
   const [filterRemoteJobs, setFilterRemoteJobs] = useState(false);
   const [filterFullTimeJobs, setFilterFullTimeJobs] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const jobsPromise = fetchJobs(
-      filterRemoteJobs,
-      filterFullTimeJobs,
-      location
-    );
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const jobsPromise = fetchJobs(
+  //     filterRemoteJobs,
+  //     filterFullTimeJobs,
+  //     location
+  //   );
 
-    jobsPromise
-      .then((data) => {
-        setIsLoading(false);
-        setJobsList(data.data);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-      });
-  }, [filterFullTimeJobs, filterRemoteJobs, location]);
+  //   jobsPromise
+  //     .then((data) => {
+  //       setIsLoading(false);
+  //       setJobsList(data.data);
+  //     })
+  //     .catch((err) => {
+  //       setIsLoading(false);
+  //     });
+  // }, [filterFullTimeJobs, filterRemoteJobs, location]);
 
   return (
     <div>
@@ -84,8 +85,8 @@ const Home = () => {
         </div>
       ) : (
         <div className="wrapper__home">
-          <div style={{ backgroundColor: "green", gridArea: "input" }}>
-            input here
+          <div style={{ gridArea: "input" }}>
+            <SearchInput />
           </div>
 
           <div style={{ gridArea: "aside", minWidth: "60%" }} className="aside">
