@@ -5,9 +5,10 @@ import "./LocationInput.css";
 
 interface LocationInputProps {
   onPlaceSet(location: string): void;
+  value: string;
 }
 
-const LocationInput = ({ onPlaceSet }: LocationInputProps) => {
+const LocationInput = ({ onPlaceSet, value }: LocationInputProps) => {
   return (
     <div className="location__input_wrapper">
       <GlobalOutlined style={{ color: "#B9BDCF", padding: "0 8px" }} />
@@ -16,6 +17,7 @@ const LocationInput = ({ onPlaceSet }: LocationInputProps) => {
         onPlaceSelected={(place) => onPlaceSet(place.formatted_address)}
         className="location__input"
         placeholder="City, state, zip code or country"
+        defaultValue={value}
       />
     </div>
   );

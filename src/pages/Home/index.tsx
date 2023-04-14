@@ -1,5 +1,4 @@
-import { useState, Suspense } from "react";
-import { defer, useLoaderData, Await } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import { Typography, Checkbox, Spin } from "antd";
 import LocationInput from "@/components/LocationInput";
@@ -7,16 +6,21 @@ import LocationInput from "@/components/LocationInput";
 import "./Home.css";
 
 import JobsList from "@/components/JobsList";
-import { LoaderResponse } from "./types";
 import { Job } from "@/components/JobsList/types";
 
 const { Title } = Typography;
 
-async function fetchJobs() {
+async function fetchJobs(
+  onlyRemote: boolean,
+  fullTimeJobs: boolean,
+  location: string
+) {
   const params = new URLSearchParams({
     page: "1",
-    query: "Frontend in Brazil",
+    query: `Frontend in ${location}`,
     num_pages: "1",
+    remote_jobs_only: String(onlyRemote),
+    employment_types: fullTimeJobs ? "FULLTIME" : "",
   });
 
   const response = await fetch(
@@ -38,22 +42,36 @@ async function fetchJobs() {
   return data;
 }
 
-export async function HomeLoader() {
-  const jobsDataPromise = fetchJobs();
-
-  return defer({
-    jobsData: jobsDataPromise,
-  });
-}
-
 const Home = () => {
-  const [location, setLocation] = useState<string>();
+  const [location, setLocation] = useState<string>("");
 
-  const data = useLoaderData() as LoaderResponse;
+  const [isLoading, setIsLoading] = useState(false);
+  const [jobsList, setJobsList] = useState<Job[]>([]);
+
+  const [filterRemoteJobs, setFilterRemoteJobs] = useState(false);
+  const [filterFullTimeJobs, setFilterFullTimeJobs] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const jobsPromise = fetchJobs(
+      filterRemoteJobs,
+      filterFullTimeJobs,
+      location
+    );
+
+    jobsPromise
+      .then((data) => {
+        setIsLoading(false);
+        setJobsList(data.data);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  }, [filterFullTimeJobs, filterRemoteJobs, location]);
 
   return (
-    <Suspense
-      fallback={
+    <div>
+      {isLoading ? (
         <div
           style={{
             display: "flex",
@@ -64,31 +82,39 @@ const Home = () => {
         >
           <Spin tip="Loading..." size="large" />
         </div>
-      }
-    >
-      <Await resolve={data.jobsData}>
-        {(data) => {
-          const jobs = data.data as Job[];
-          return (
-            <div className="wrapper__home">
-              <div style={{ backgroundColor: "green", gridArea: "input" }}>
-                input here
-              </div>
+      ) : (
+        <div className="wrapper__home">
+          <div style={{ backgroundColor: "green", gridArea: "input" }}>
+            input here
+          </div>
 
-              <div style={{ gridArea: "aside" }} className="aside">
-                <Checkbox>Full time</Checkbox>
-                <Title level={5}>Location</Title>
-                <LocationInput onPlaceSet={setLocation} />
-              </div>
-
-              <div style={{ gridArea: "list", marginTop: "10px" }}>
-                <JobsList jobsList={jobs} />
-              </div>
+          <div style={{ gridArea: "aside", minWidth: "60%" }} className="aside">
+            <div>
+              <Checkbox
+                checked={filterFullTimeJobs}
+                onChange={() =>
+                  setFilterFullTimeJobs((prevState) => !prevState)
+                }
+              >
+                Full time
+              </Checkbox>
+              <Checkbox
+                checked={filterRemoteJobs}
+                onChange={() => setFilterRemoteJobs((prevState) => !prevState)}
+              >
+                Remote
+              </Checkbox>
             </div>
-          );
-        }}
-      </Await>
-    </Suspense>
+            <Title level={5}>Location</Title>
+            <LocationInput onPlaceSet={setLocation} value={location} />
+          </div>
+
+          <div style={{ gridArea: "list", marginTop: "10px" }}>
+            <JobsList jobsList={jobsList} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
