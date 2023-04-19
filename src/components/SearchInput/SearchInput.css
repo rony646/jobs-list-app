@@ -6,16 +6,40 @@
   width: 100%;
   background: url(../../assets/background.jpeg);
   background-size: cover;
+  border-radius: 8px;
 }
 
 .search__input__input__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   height: 60px;
   width: 65%;
   background-color: #fff;
   border-radius: 4px;
 }
 
+.search__input__input__box_button {
+  height: 75%;
+  width: 10%;
+}
+
+.search__input__input__box_input {
+  width: 85%;
+  border: none;
+  outline: none;
+  height: 90%;
+}
+
 @media (max-width: 992px) {
+  .search__input__input__box_input {
+    width: 75%;
+  }
+
+  .search__input__input__box_button {
+    width: 20%;
+  }
+
   .search__input_wrapper {
     padding: 20px 0;
   }
