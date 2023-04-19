@@ -60,7 +60,7 @@ const JobCard = ({
               marginLeft: "7px",
             }}
           >
-            {`${daysDifference} days ago`}
+            {daysDifference !== 0 ? `${daysDifference} days ago` : "Today"}
           </Text>
         </div>
       </div>
