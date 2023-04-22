@@ -17,12 +17,15 @@ const JobsList = ({ jobsList }: JobsListProps) => {
       {jobsList.map((job) => (
         <div className="list__item">
           <JobCard
+            key={job.job_id}
+            jobId={job.job_id}
             companyLogo={job.employer_logo || defaultLogo}
             companyName={job.employer_name}
             city={job.job_city}
             isRemote={job.job_is_remote}
             jobTitle={job.job_title}
             publishedAt={new Date(job.job_posted_at_datetime_utc)}
+
           />
         </div>
       ))}

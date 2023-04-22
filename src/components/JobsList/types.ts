@@ -1,4 +1,5 @@
 export interface Job {
+  job_id: string;
   job_title: string;
   job_city: string;
   job_country: string;
