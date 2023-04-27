@@ -1,0 +1,12 @@
+.job_detail__wrapper {
+  display: flex;
+}
+
+.job_detail__aside {
+  width: 30%;
+}
+
+.job_detail__content {
+  width: 70%;
+  background: blue;
+}

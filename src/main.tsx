@@ -22,9 +22,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: 'job-detail/:jobId',
-    element: <JobDetails />
-  }
+    path: "job-detail/:jobId",
+    element: <JobDetails />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
