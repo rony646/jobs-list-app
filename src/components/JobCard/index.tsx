@@ -38,7 +38,11 @@ const JobCard = ({
   };
 
   return (
-    <div className="jobcard__wrapper" style={{ ...style }} onClick={() => goToDetailsPage()}>
+    <div
+      className="jobcard__wrapper"
+      style={{ ...style }}
+      onClick={() => goToDetailsPage()}
+    >
       <div className="jobcard__img_wrapper">
         <img src={companyLogo} alt="company logo" width="100%" height="100%" />
       </div>
@@ -61,6 +65,7 @@ const JobCard = ({
             <Text style={{ color: "#B9BDCF", marginLeft: "7px" }}>{city}</Text>
           </div>
         )}
+
         <div className="jobcard__location_info__tag">
           <ClockCircleOutlined style={{ color: "#B9BDCF" }} />
           <Text

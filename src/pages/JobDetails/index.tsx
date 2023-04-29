@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Spin, Button, Typography } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  ClockCircleOutlined,
+  GlobalOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
+import { JobDetail } from "./types";
 
 import "./JobDetails.css";
+import { differenceInDays } from "date-fns";
+import { replaceWithBr } from "./functions";
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 const fetchJobDetailData = async (jobId: string) => {
   const response = await fetch(
@@ -35,8 +43,9 @@ export const jobsDetailLoader = async ({ params }: Record<string, any>) => {};
 
 const JobDetails = () => {
   const { jobId } = useParams();
+  const navigate = useNavigate();
 
-  const [jobData, setJobData] = useState();
+  const [jobData, setJobData] = useState<JobDetail>();
   const [loading, setLoading] = useState(false);
 
   const getJobData = () => {
@@ -44,7 +53,7 @@ const JobDetails = () => {
 
     fetchJobDetailData(jobId as string)
       .then((data) => {
-        setJobData(data.data);
+        setJobData(data.data[0] as JobDetail);
         setLoading(false);
       })
       .catch((err) => {
@@ -53,8 +62,15 @@ const JobDetails = () => {
   };
 
   useEffect(() => {
-    // getJobData();
+    getJobData();
   }, []);
+
+  const daysDifference = jobData
+    ? differenceInDays(
+        new Date(),
+        new Date(jobData?.job_posted_at_datetime_utc)
+      )
+    : 0;
 
   return (
     <div>
@@ -76,14 +92,63 @@ const JobDetails = () => {
               type="text"
               icon={<ArrowLeftOutlined />}
               style={{
-                color: "#1D86FF",
                 fontWeight: "normal",
               }}
+              onClick={() => navigate("/home")}
             >
               Back to search
             </Button>
           </div>
-          <div className="job_detail__content">Job detail here</div>
+
+          <div className="job_detail__content">
+            <Title style={{ fontSize: "25px" }}>{jobData?.job_job_title}</Title>
+
+            <div className="job_detail__published_time">
+              <ClockCircleOutlined style={{ color: "#B9BDCF" }} />
+              <Text style={{ marginLeft: "7px", color: "#B9BDCF" }}>
+                {daysDifference !== 0 ? `${daysDifference} days ago` : "Today"}
+              </Text>
+            </div>
+
+            <div className="job_detail__company_info">
+              <div className="jobcard__img_wrapper">
+                <img
+                  src={`${jobData?.employer_logo}`}
+                  alt="company logo"
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+
+              <div className="job_detail__company_info_details">
+                <Title level={5}>{jobData?.employer_name}</Title>
+                <div>
+                  <GlobalOutlined style={{ color: "#B9BDCF" }} />
+                  <Text style={{ color: "#B9BDCF", marginLeft: "7px" }}>
+                    {jobData?.job_city}
+                  </Text>
+                </div>
+              </div>
+            </div>
+
+            <Text>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: replaceWithBr(jobData?.job_description),
+                }}
+                style={{ margin: "20px 0" }}
+              />
+            </Text>
+
+            <Button
+              icon={<SendOutlined />}
+              type="primary"
+              href={jobData?.job_apply_link}
+              target="_blank"
+            >
+              Apply Here
+            </Button>
+          </div>
         </div>
       )}
     </div>

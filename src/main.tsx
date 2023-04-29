@@ -19,11 +19,11 @@ const router = createBrowserRouter([
         element: <Home />,
         shouldRevalidate: () => false,
       },
+      {
+        path: "job-detail/:jobId",
+        element: <JobDetails />,
+      },
     ],
-  },
-  {
-    path: "job-detail/:jobId",
-    element: <JobDetails />,
   },
 ]);
 

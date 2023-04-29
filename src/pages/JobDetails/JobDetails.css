@@ -8,5 +8,19 @@
 
 .job_detail__content {
   width: 70%;
-  background: blue;
+}
+
+.job_detail__published_time {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.job_detail__company_info {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.job_detail__company_info_details {
+  margin-left: 10px;
 }
