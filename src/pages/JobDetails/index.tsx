@@ -145,6 +145,7 @@ const JobDetails = () => {
               type="primary"
               href={jobData?.job_apply_link}
               target="_blank"
+              className="job_detail__button_apply"
             >
               Apply Here
             </Button>

@@ -24,3 +24,22 @@
 .job_detail__company_info_details {
   margin-left: 10px;
 }
+
+@media (max-width: 992px) {
+  .job_detail__wrapper {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .job_detail__aside {
+    width: 100%;
+  }
+
+  .job_detail__button_apply {
+    margin-bottom: 10px;
+  }
+
+  .job_detail__content {
+    width: 90%;
+  }
+};
