@@ -25,7 +25,7 @@ yarn dev
 
 4. You can check out the deployed version here:
 
-https://jobs-list-11zcfdboy-rony646.vercel.app
+  https://jobs-list-11zcfdboy-rony646.vercel.app
 
 
 ## Contributing
