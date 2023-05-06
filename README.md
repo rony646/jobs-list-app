@@ -23,6 +23,11 @@ VITE_RAPID_API_KEY=YOUR_RAPID_API_KEY
 yarn dev
 ```
 
+4. You can check out the deployed version here:
+```sh
+jobs-list-app.vercel.app
+```
+
 ## Contributing
 
 1. Fork it (<https://github.com/rony646/jobs-list-app/fork>)
