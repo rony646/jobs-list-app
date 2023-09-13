@@ -1,7 +1,6 @@
 export const paths = {
   Root: "/",
-  Home: "/home",
-  Detail: '/job-detail/',
+  Detail: "/job-detail",
 };
 
 export default paths;

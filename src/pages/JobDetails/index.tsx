@@ -13,6 +13,7 @@ import { JobDetail } from "./types";
 import "./JobDetails.css";
 import { differenceInDays } from "date-fns";
 import { replaceWithBr } from "./functions";
+import paths from "@/paths";
 
 const { Text, Title } = Typography;
 
@@ -94,7 +95,7 @@ const JobDetails = () => {
               style={{
                 fontWeight: "normal",
               }}
-              onClick={() => navigate("/home")}
+              onClick={() => navigate(paths.Root)}
             >
               Back to search
             </Button>

@@ -8,6 +8,7 @@ import "./Home.css";
 import JobsList from "@/components/JobsList";
 import { Job } from "@/components/JobsList/types";
 import SearchInput from "@/components/SearchInput";
+import { useSearchParams } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -47,7 +48,7 @@ async function fetchJobs(
 
 const Home = () => {
   const [location, setLocation] = useState<string>("");
-  const [searchValue, setSearchValue] = useState<string>("Frontend");
+  const [params, setParams] = useSearchParams({ search: "Frontend" });
   const [page, setPage] = useState(1);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +64,7 @@ const Home = () => {
       filterRemoteJobs,
       filterFullTimeJobs,
       location,
-      searchValue,
+      params.get("search") as string,
       page
     );
 
@@ -101,8 +102,8 @@ const Home = () => {
           <div className="wrapper__home">
             <div style={{ gridArea: "input" }}>
               <SearchInput
-                value={searchValue}
-                onChangeValue={setSearchValue}
+                value={params.get("search") as string}
+                onChangeValue={(value) => setParams({ search: value })}
                 onSearchValue={() => getJobs()}
               />
             </div>

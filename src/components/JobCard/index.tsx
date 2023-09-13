@@ -4,7 +4,7 @@ import { GlobalOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 
 import "./JobCard.css";
-import { useNavigate } from "react-router-dom";
+import paths from "@/paths";
 
 const { Text } = Typography;
 
@@ -31,10 +31,8 @@ const JobCard = ({
 }: JobCardProps) => {
   const daysDifference = differenceInDays(new Date(), publishedAt);
 
-  const navigate = useNavigate();
-
   const goToDetailsPage = () => {
-    navigate(`/job-detail/${jobId}`);
+    window.open(`${window.location.origin}${paths.Detail}/${jobId}`);
   };
 
   return (

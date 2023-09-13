@@ -24,6 +24,11 @@ const SearchInput = ({
           prefix={<TeamOutlined />}
           value={value}
           onChange={(event) => onChangeValue(event.target.value)}
+          onKeyUp={(event) => {
+            if (event.key === "Enter") {
+              onSearchValue(value);
+            }
+          }}
         />
 
         <Button
