@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Spin, Button, Typography } from "antd";
@@ -49,7 +49,7 @@ const JobDetails = () => {
   const [jobData, setJobData] = useState<JobDetail>();
   const [loading, setLoading] = useState(false);
 
-  const getJobData = () => {
+  const getJobData = useCallback(() => {
     setLoading(true);
 
     fetchJobDetailData(jobId as string)
@@ -60,11 +60,11 @@ const JobDetails = () => {
       .catch((err) => {
         setLoading(false);
       });
-  };
+  }, [jobId]);
 
   useEffect(() => {
     getJobData();
-  }, []);
+  }, [getJobData]);
 
   const daysDifference = jobData
     ? differenceInDays(
