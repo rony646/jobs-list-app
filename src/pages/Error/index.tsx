@@ -1,15 +1,13 @@
-import { Layout, Typography, Image } from "antd";
+import { Image } from "antd";
 import errorSvg from "../../assets/error.svg";
-import "./Error.css";
-
-const { Title } = Typography;
+import * as S from "./styles";
 
 const ErrorPage = () => {
   return (
-    <Layout className="wrapper">
+    <S.Container>
       <Image width={120} src={errorSvg} style={{ marginBottom: "35px" }} />
-      <Title className="title">Oh no! Something went wrong :(</Title>
-    </Layout>
+      <S.Error>Oh no! Something went wrong :(</S.Error>
+    </S.Container>
   );
 };
 
