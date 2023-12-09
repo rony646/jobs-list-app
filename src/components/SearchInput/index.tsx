@@ -1,7 +1,6 @@
-import { Button, Input } from "antd";
 import { TeamOutlined } from "@ant-design/icons";
 
-import "./SearchInput.css";
+import * as S from "./styles";
 
 interface SearchInputProps {
   value: string;
@@ -15,12 +14,11 @@ const SearchInput = ({
   onSearchValue,
 }: SearchInputProps) => {
   return (
-    <div className="search__input_wrapper">
-      <div className="search__input__input__box">
-        <Input
+    <S.Wrapper>
+      <S.InputBoxContainer>
+        <S.SearchInput
           size="large"
           placeholder="Title, expertise or benefits"
-          className="search__input__input__box_input"
           prefix={<TeamOutlined />}
           value={value}
           onChange={(event) => onChangeValue(event.target.value)}
@@ -31,15 +29,11 @@ const SearchInput = ({
           }}
         />
 
-        <Button
-          type="primary"
-          className="search__input__input__box_button"
-          onClick={() => onSearchValue(value)}
-        >
+        <S.SearchButton type="primary" onClick={() => onSearchValue(value)}>
           Search
-        </Button>
-      </div>
-    </div>
+        </S.SearchButton>
+      </S.InputBoxContainer>
+    </S.Wrapper>
   );
 };
 

@@ -15,7 +15,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-autocomplete": "^2.7.3",
-    "react-router-dom": "^6.8.1"
+    "react-router-dom": "^6.8.1",
+    "styled-components": "^6.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
@@ -25,7 +26,10 @@
     "eslint-config-react-app": "^7.0.1",
     "prettier": "^2.8.4",
     "typescript": "^4.9.3",
-    "vite": "^4.1.0",
+    "vite": "^5.0.4",
     "vite-plugin-eslint": "^1.8.1"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }

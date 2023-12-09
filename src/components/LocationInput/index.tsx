@@ -1,7 +1,7 @@
 import { GlobalOutlined } from "@ant-design/icons";
 import AutoComplete from "react-google-autocomplete";
 
-import "./LocationInput.css";
+import * as S from "./styles";
 
 interface LocationInputProps {
   onPlaceSet(location: string): void;
@@ -10,7 +10,7 @@ interface LocationInputProps {
 
 const LocationInput = ({ onPlaceSet, value }: LocationInputProps) => {
   return (
-    <div className="location__input_wrapper">
+    <S.Wrapper>
       <GlobalOutlined style={{ color: "#B9BDCF", padding: "0 8px" }} />
       <AutoComplete
         apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
@@ -19,7 +19,7 @@ const LocationInput = ({ onPlaceSet, value }: LocationInputProps) => {
         placeholder="City, state, zip code or country"
         defaultValue={value}
       />
-    </div>
+    </S.Wrapper>
   );
 };
 

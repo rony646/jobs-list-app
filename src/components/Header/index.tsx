@@ -1,19 +1,19 @@
 import { Typography } from "antd";
-import "./Header.css";
+import * as S from "./styles";
 
 const { Text } = Typography;
 
-const Header  = () => {
-  return(
-    <header>
-       <Text className="title" strong>
-          Jobs
-       </Text>
-       <Text className="title" style={{ fontWeight: 'lighter' }}>
-          List
-       </Text>
-    </header>
-  )
+const Header = () => {
+  return (
+    <S.Header>
+      <Text className="title" strong>
+        Jobs
+      </Text>
+      <Text className="title" style={{ fontWeight: "lighter" }}>
+        List
+      </Text>
+    </S.Header>
+  );
 };
 
 export default Header;

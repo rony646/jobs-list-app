@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { Typography, Checkbox, Spin, Pagination } from "antd";
 import LocationInput from "@/components/LocationInput";
 
-import "./Home.css";
-
 import JobsList from "@/components/JobsList";
 import { Job } from "@/components/JobsList/types";
 import SearchInput from "@/components/SearchInput";
 import { useSearchParams } from "react-router-dom";
+
+import * as S from "./styles";
 
 const { Title } = Typography;
 
@@ -87,67 +87,53 @@ const Home = () => {
   return (
     <div>
       {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            height: "80vh",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <S.SpinContainer>
           <Spin tip="Loading..." size="large" />
-        </div>
+        </S.SpinContainer>
       ) : (
-        <>
-          <div className="wrapper__home">
-            <div style={{ gridArea: "input" }}>
-              <SearchInput
-                value={params.get("search") as string}
-                onChangeValue={(value) => setParams({ search: value })}
-                onSearchValue={() => getJobs()}
-              />
-            </div>
-
-            <div
-              style={{ gridArea: "aside", minWidth: "60%" }}
-              className="aside"
-            >
-              <div>
-                <Checkbox
-                  checked={filterFullTimeJobs}
-                  onChange={() =>
-                    setFilterFullTimeJobs((prevState) => !prevState)
-                  }
-                >
-                  Full time
-                </Checkbox>
-                <Checkbox
-                  checked={filterRemoteJobs}
-                  onChange={() =>
-                    setFilterRemoteJobs((prevState) => !prevState)
-                  }
-                >
-                  Remote
-                </Checkbox>
-              </div>
-              <Title level={5}>Location</Title>
-              <LocationInput onPlaceSet={setLocation} value={location} />
-            </div>
-
-            <div style={{ gridArea: "list", marginTop: "10px" }}>
-              <JobsList jobsList={jobsList} />
-
-              <div className="wrapper__pagination">
-                <Pagination
-                  defaultCurrent={1}
-                  current={page}
-                  total={50}
-                  onChange={(page) => setPage(page)}
-                />
-              </div>
-            </div>
+        <S.HomeContainer>
+          <div style={{ gridArea: "input" }}>
+            <SearchInput
+              value={params.get("search") as string}
+              onChangeValue={(value) => setParams({ search: value })}
+              onSearchValue={() => getJobs()}
+            />
           </div>
-        </>
+
+          <S.Aside>
+            <div>
+              <Checkbox
+                checked={filterFullTimeJobs}
+                onChange={() =>
+                  setFilterFullTimeJobs((prevState) => !prevState)
+                }
+              >
+                Full time
+              </Checkbox>
+              <Checkbox
+                checked={filterRemoteJobs}
+                onChange={() => setFilterRemoteJobs((prevState) => !prevState)}
+              >
+                Remote
+              </Checkbox>
+            </div>
+            <Title level={5}>Location</Title>
+            <LocationInput onPlaceSet={setLocation} value={location} />
+          </S.Aside>
+
+          <S.List>
+            <JobsList jobsList={jobsList} />
+
+            <S.PaginationWrapper>
+              <Pagination
+                defaultCurrent={1}
+                current={page}
+                total={50}
+                onChange={(page) => setPage(page)}
+              />
+            </S.PaginationWrapper>
+          </S.List>
+        </S.HomeContainer>
       )}
     </div>
   );

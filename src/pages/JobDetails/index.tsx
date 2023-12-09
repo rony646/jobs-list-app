@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Spin, Button, Typography } from "antd";
+import { differenceInDays } from "date-fns";
+import { Spin, Typography } from "antd";
 import {
   ArrowLeftOutlined,
   ClockCircleOutlined,
@@ -10,8 +11,8 @@ import {
 } from "@ant-design/icons";
 import { JobDetail } from "./types";
 
-import "./JobDetails.css";
-import { differenceInDays } from "date-fns";
+import * as S from "./styles";
+
 import { replaceWithBr } from "./functions";
 import paths from "@/paths";
 
@@ -49,7 +50,7 @@ const JobDetails = () => {
   const [jobData, setJobData] = useState<JobDetail>();
   const [loading, setLoading] = useState(false);
 
-  const getJobData = () => {
+  const getJobData = useCallback(() => {
     setLoading(true);
 
     fetchJobDetailData(jobId as string)
@@ -60,11 +61,11 @@ const JobDetails = () => {
       .catch((err) => {
         setLoading(false);
       });
-  };
+  }, [jobId]);
 
   useEffect(() => {
     getJobData();
-  }, []);
+  }, [getJobData]);
 
   const daysDifference = jobData
     ? differenceInDays(
@@ -74,54 +75,44 @@ const JobDetails = () => {
     : 0;
 
   return (
-    <div>
+    <>
       {loading ? (
-        <div
-          style={{
-            display: "flex",
-            height: "80vh",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <S.SpinContainer>
           <Spin tip="Loading..." size="large" />
-        </div>
+        </S.SpinContainer>
       ) : (
-        <div className="job_detail__wrapper">
-          <div className="job_detail__aside">
-            <Button
+        <S.Container>
+          <S.Aside>
+            <S.BackButton
               type="text"
               icon={<ArrowLeftOutlined />}
-              style={{
-                fontWeight: "normal",
-              }}
               onClick={() => navigate(paths.Root)}
             >
               Back to search
-            </Button>
-          </div>
+            </S.BackButton>
+          </S.Aside>
 
-          <div className="job_detail__content">
-            <Title style={{ fontSize: "25px" }}>{jobData?.job_job_title}</Title>
+          <S.JobDetailWrapper>
+            <S.JobTitle>{jobData?.job_job_title}</S.JobTitle>
 
-            <div className="job_detail__published_time">
-              <ClockCircleOutlined style={{ color: "#B9BDCF" }} />
+            <S.PublishedTime>
+              <ClockCircleOutlined />
               <Text style={{ marginLeft: "7px", color: "#B9BDCF" }}>
                 {daysDifference !== 0 ? `${daysDifference} days ago` : "Today"}
               </Text>
-            </div>
+            </S.PublishedTime>
 
-            <div className="job_detail__company_info">
-              <div className="jobcard__img_wrapper">
+            <S.CompanyDetail>
+              <S.LogoWrapper>
                 <img
                   src={`${jobData?.employer_logo}`}
                   alt="company logo"
                   width="100%"
                   height="100%"
                 />
-              </div>
+              </S.LogoWrapper>
 
-              <div className="job_detail__company_info_details">
+              <S.CompanyDetailInfo>
                 <Title level={5}>{jobData?.employer_name}</Title>
                 <div>
                   <GlobalOutlined style={{ color: "#B9BDCF" }} />
@@ -129,8 +120,8 @@ const JobDetails = () => {
                     {jobData?.job_city}
                   </Text>
                 </div>
-              </div>
-            </div>
+              </S.CompanyDetailInfo>
+            </S.CompanyDetail>
 
             <Text>
               <p
@@ -141,19 +132,18 @@ const JobDetails = () => {
               />
             </Text>
 
-            <Button
+            <S.ApplyButton
               icon={<SendOutlined />}
               type="primary"
               href={jobData?.job_apply_link}
               target="_blank"
-              className="job_detail__button_apply"
             >
               Apply Here
-            </Button>
-          </div>
-        </div>
+            </S.ApplyButton>
+          </S.JobDetailWrapper>
+        </S.Container>
       )}
-    </div>
+    </>
   );
 };
 
