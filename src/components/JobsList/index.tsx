@@ -1,7 +1,7 @@
 import JobCard from "@/components/JobCard";
 import { Job } from "./types";
 
-import "./JobsList.css";
+import * as S from "./styles";
 
 interface JobsListProps {
   jobsList: Job[];
@@ -13,9 +13,9 @@ const defaultLogo =
 // eslint-disable-next-line no-empty-pattern
 const JobsList = ({ jobsList }: JobsListProps) => {
   return (
-    <div className="list__wrapper">
+    <div>
       {jobsList.map((job) => (
-        <div className="list__item">
+        <S.ListItem>
           <JobCard
             key={job.job_id}
             jobId={job.job_id}
@@ -25,9 +25,8 @@ const JobsList = ({ jobsList }: JobsListProps) => {
             isRemote={job.job_is_remote}
             jobTitle={job.job_title}
             publishedAt={new Date(job.job_posted_at_datetime_utc)}
-
           />
-        </div>
+        </S.ListItem>
       ))}
     </div>
   );

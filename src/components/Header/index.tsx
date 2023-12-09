@@ -1,18 +1,18 @@
 import { Typography } from "antd";
-import "./Header.css";
+import * as S from "./styles";
 
 const { Text } = Typography;
 
 const Header = () => {
   return (
-    <header>
+    <S.Header>
       <Text className="title" strong>
         Jobs
       </Text>
       <Text className="title" style={{ fontWeight: "lighter" }}>
         List
       </Text>
-    </header>
+    </S.Header>
   );
 };
 

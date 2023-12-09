@@ -3,7 +3,8 @@ import { differenceInDays } from "date-fns";
 import { GlobalOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
 
-import "./JobCard.css";
+import * as S from "./styles";
+
 import paths from "@/paths";
 
 const { Text } = Typography;
@@ -36,35 +37,30 @@ const JobCard = ({
   };
 
   return (
-    <div
-      className="jobcard__wrapper"
-      style={{ ...style }}
-      onClick={() => goToDetailsPage()}
-    >
-      <div className="jobcard__img_wrapper">
+    <S.Container style={{ ...style }} onClick={() => goToDetailsPage()}>
+      <S.ImageWrapper>
         <img src={companyLogo} alt="company logo" width="100%" height="100%" />
-      </div>
-      <div className="jobcard__content_wrapper">
+      </S.ImageWrapper>
+
+      <S.ContentWrapper>
         <Text className="jobcard__content_company_name">{companyName}</Text>
         <Text className="jobcard__content_job_title">{jobTitle}</Text>
         {isRemote && (
-          <div className="jobcard__content_job_tag">
+          <S.JobTag>
             <Text className="jobcard__content_job_tag__text">Remote</Text>
-          </div>
+          </S.JobTag>
         )}
-      </div>
-      <div className="jobcard__location_info">
+      </S.ContentWrapper>
+
+      <S.LocationInfo>
         {city && (
-          <div
-            className="jobcard__location_info__tag"
-            style={{ marginRight: "10px" }}
-          >
+          <div style={{ marginRight: "10px" }}>
             <GlobalOutlined style={{ color: "#B9BDCF" }} />
             <Text style={{ color: "#B9BDCF", marginLeft: "7px" }}>{city}</Text>
           </div>
         )}
 
-        <div className="jobcard__location_info__tag">
+        <div>
           <ClockCircleOutlined style={{ color: "#B9BDCF" }} />
           <Text
             style={{
@@ -75,8 +71,8 @@ const JobCard = ({
             {daysDifference !== 0 ? `${daysDifference} days ago` : "Today"}
           </Text>
         </div>
-      </div>
-    </div>
+      </S.LocationInfo>
+    </S.Container>
   );
 };
 
