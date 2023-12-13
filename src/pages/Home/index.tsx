@@ -6,49 +6,16 @@ import LocationInput from "@/components/LocationInput";
 import JobsList from "@/components/JobsList";
 import { Job } from "@/components/JobsList/types";
 import SearchInput from "@/components/SearchInput";
-import { useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 
 import * as S from "./styles";
+import { fetchJobs } from "@/services/api/endpoints";
 
 const { Title } = Typography;
 
-async function fetchJobs(
-  onlyRemote: boolean,
-  fullTimeJobs: boolean,
-  location: string,
-  searchQuery: string,
-  currentPage: number
-) {
-  const params = new URLSearchParams({
-    page: `${currentPage}`,
-    query: `${searchQuery} in ${location}`,
-    num_pages: "5",
-    remote_jobs_only: String(onlyRemote),
-    employment_types: fullTimeJobs ? "FULLTIME" : "",
-  });
-
-  const response = await fetch(
-    `https://jsearch.p.rapidapi.com/search?${params.toString()}`,
-    {
-      headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY,
-      },
-    }
-  );
-
-  if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
-    throw new Error(message);
-  }
-
-  const data = await response.json();
-
-  return data;
-}
-
 const Home = () => {
   const [location, setLocation] = useState<string>("");
-  const [params, setParams] = useSearchParams({ search: "Frontend" });
+  const [params, setParams] = useSearchParams({ search: "" });
   const [page, setPage] = useState(1);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +23,8 @@ const Home = () => {
 
   const [filterRemoteJobs, setFilterRemoteJobs] = useState(false);
   const [filterFullTimeJobs, setFilterFullTimeJobs] = useState(false);
+
+  const loaderData = useLoaderData() as { data: Job[] };
 
   const getJobs = () => {
     setIsLoading(true);
@@ -80,7 +49,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getJobs();
+    if (!jobsList.length) {
+      setJobsList(loaderData.data);
+    }
+  }, [loaderData, jobsList.length]);
+
+  useEffect(() => {
+    if (jobsList.length) {
+      getJobs();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterFullTimeJobs, filterRemoteJobs, location, page]);
 
