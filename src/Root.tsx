@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ConfigProvider, Layout } from "antd";
+import { ConfigProvider, Layout, Spin } from "antd";
 import Home from "@/pages/Home";
 import Error from "@/pages/Error";
 import Header from "@/components/Header";
@@ -43,7 +43,21 @@ const Root = () => {
     >
       <Layout className="container">
         <Header />
-        <RouterProvider router={router} />
+        <RouterProvider
+          router={router}
+          fallbackElement={
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "85vh",
+              }}
+            >
+              <Spin tip="Loading..." size="large" />
+            </div>
+          }
+        />
       </Layout>
     </ConfigProvider>
   );
