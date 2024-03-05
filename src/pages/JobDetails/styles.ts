@@ -20,8 +20,15 @@ export const Aside = styled.div`
   }
 `;
 
-export const BackButton = styled(Button)`
+export const BackLink = styled.a`
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
   font-weight: normal;
+
+  span {
+    margin-right: 8px;
+  }
 `;
 
 export const JobDetailWrapper = styled.div`

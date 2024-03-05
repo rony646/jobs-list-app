@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 import { differenceInDays } from "date-fns";
 import { Spin, Typography } from "antd";
@@ -83,13 +83,10 @@ const JobDetails = () => {
       ) : (
         <S.Container>
           <S.Aside>
-            <S.BackButton
-              type="text"
-              icon={<ArrowLeftOutlined />}
-              onClick={() => navigate(paths.Root)}
-            >
+            <S.BackLink as="a" href="/">
+              <ArrowLeftOutlined />
               Back to search
-            </S.BackButton>
+            </S.BackLink>
           </S.Aside>
 
           <S.JobDetailWrapper>
